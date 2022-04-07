@@ -1,0 +1,62 @@
+#En esta ocasión estaré utilizando REDIS para crear una base de datos de palabras del Slang Panameño.
+#Es importante mencionar que REDIS crea la base de datos en el servidor en el que esta instalado. En mi caso sería en mi PC asi que trataré de explicarlo lo mejor posible.
+
+#El primer comando que debemos utilizar es el "SET (llave) (valor)" que en mi caso coloque "name" y el valor que puse fue "Slang PTY by: JOSE DONDIS".
+SET name "Slang PTY by: JOSE DONDIS"
+
+#Luego para hacerlo mas personalizado utilice el "SET(comando) cedula(llave) "4-812-1989" (valor).
+SET cedula "4-812-1989"
+
+#Decidi colocar el comando "SET age"
+SET age "20"
+
+#Para poder visualizar estos comandos es tan simple como colocar el comando "GET" y el nombre de la key que en mi caso utilice "name", "cedula y "age"
+GET name 
+"Slang PTY by: JOSE DONDIS"
+GET cedula
+"4-812-1989"  
+GET age
+"20"
+
+#Desde este punto empece con la base de datos. Colocando el comando lpush(COMANDO) palabras (KEY) y luego el valor.
+lpush palabras "Chantin: Significa casa"
+lpush palabras "Lofi: Significa filo que a su vez se refiere a un cuchillo"
+lpush palabras "Oti: Significa tio"
+lpush palabras "Nave: Significa carro"
+lpush palabras "Viejita o viejito: Se refiere a Padre o madre. Tambien puede ser una persona de la tercera edad"
+lpush palabras "Viejita o viejito: Se refiere a Padre o madre. Tambien puede ser una persona de la tercera edad"
+
+#Este ultimo dato fue intencional ya que mostrare como eliminar un dato de la base de datos.
+
+#Para mostrar la base de datos solo debemos colocar el comando "lrange palabras 0 -1"
+lrange palabras 0 -1
+1) "Viejita o viejito: Se refiere a Padre o madre. Tambien puede ser una persona de la tercera edad"
+2) "Viejita o viejito: Se refiere a Padre o madre. Tambien puede ser una persona de la tercera edad"
+3) "Nave: Significa carro"
+4) "Oti: Significa tio"
+5) "Lofi: Significa filo que a su vez se refiere a un cuchillo"
+6) "Chantin: Significa casa"
+
+#Para borrar palabras de nuestra base de datos debemos colocar el comando "LPOP palabras o RPOP palabras".
+#Depende si queremos borrar el primero (RPOP ) o la ultimo dato (LPOP)
+LPOP palabras
+"Viejita o viejito: Se refiere a Padre o madre. Tambien puede ser una persona de la tercera edad"
+#Nos regresa el dato que se acaba de eliminar
+
+#Colocamos nuevamente el comando "lrange palabras 0 -1" para revisar.
+lrange palabras 0 -1
+1) "Viejita o viejito: Se refiere a Padre o madre. Tambien puede ser una persona de la tercera edad"
+2) "Nave: Significa carro"
+3) "Oti: Significa tio"
+4) "Lofi: Significa filo que a su vez se refiere a un cuchillo"
+5) "Chantin: Significa casa"
+
+#Para mostrar todas nuestras llaves que hemos creado debemos colocar "KEYS *"
+KEYS *
+1) "name"     
+2) "cedula"        
+3) "age"   
+4) "palabras"  
+
+#Para limpiar nuestro cmd o TERMINAL solo debemos colocar el comando "CLEAR"
+#Para borrar toda nuestra base de datos debemos colocar "flushall"
